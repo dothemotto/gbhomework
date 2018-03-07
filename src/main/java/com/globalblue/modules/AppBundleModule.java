@@ -8,5 +8,6 @@ public class AppBundleModule extends AbstractModule {
     protected void configure() {
         install(new ControllerFactoryModule());
         install(new CSVServiceModule());
+        install(new DataGenerationServiceModule());
     }
 }

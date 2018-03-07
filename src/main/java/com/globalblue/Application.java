@@ -3,12 +3,18 @@ package com.globalblue;
 import com.globalblue.commons.Constants;
 import com.globalblue.commons.Controller;
 import com.globalblue.commons.ControllerFactory;
+import com.globalblue.models.Invoice;
 import com.globalblue.modules.AppBundleModule;
+import com.globalblue.services.DataGenerationService;
+import com.globalblue.services.impl.DataGenerationServiceImpl;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.util.HashMap;
 
 
 public class Application extends javafx.application.Application {
@@ -35,5 +41,4 @@ public class Application extends javafx.application.Application {
     public static void main(String[] args) {
         Application.launch(args);
     }
-
 }

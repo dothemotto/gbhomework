@@ -1,14 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.globalblue.controllers.RootController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.globalblue.controllers.RootController">
+    <children>
+        <GridPane layoutX="63.0" layoutY="34.0" prefHeight="319.0" prefWidth="481.0">
+            <children>
+                <Label prefWidth="124.0" text="Invoice to Shop Nr:" GridPane.columnIndex="0" GridPane.halignment="RIGHT"
+                       GridPane.rowIndex="0" GridPane.valignment="CENTER"/>
+                <Label prefWidth="124.0" text="Invoice Date from:" GridPane.columnIndex="0" GridPane.halignment="RIGHT"
+                       GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                <Label prefWidth="124.0" text="Invoice Date to:" GridPane.columnIndex="0" GridPane.halignment="RIGHT"
+                       GridPane.rowIndex="2" GridPane.valignment="CENTER"/>
+                <Label prefWidth="124.0" text="Filename:" GridPane.columnIndex="0" GridPane.halignment="RIGHT"
+                       GridPane.rowIndex="3" GridPane.valignment="CENTER"/>
+                <Label prefWidth="124.0" text="Start (Y/N):" GridPane.columnIndex="0" GridPane.halignment="RIGHT"
+                       GridPane.rowIndex="5" GridPane.valignment="CENTER"/>
+                <TextField fx:id="shopNumber" maxWidth="-Infinity" prefHeight="25.0" prefWidth="174.0" GridPane.columnIndex="1"
+                           GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+                    <GridPane.margin>
+                        <Insets/>
+                    </GridPane.margin>
+                </TextField>
+                <DatePicker fx:id="dateFrom" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <DatePicker fx:id="dateTo" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <TextField fx:id="filename" prefWidth="378.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3"
+                           GridPane.valignment="CENTER"/>
+                <Separator prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                <TextField fx:id="executionCommand" maxWidth="-Infinity" prefWidth="87.0" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+            </children>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="194.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="401.0" minWidth="10.0" prefWidth="378.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+        </GridPane>
+    </children>
 </AnchorPane>
