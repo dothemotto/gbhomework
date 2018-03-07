@@ -8,6 +8,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DataGenerationServiceImpl implements DataGenerationService {
@@ -31,7 +32,10 @@ public class DataGenerationServiceImpl implements DataGenerationService {
 
             instance.setInvoiceNumber(Long.parseLong(RandomStringUtils.randomNumeric(10)));
             instance.setInvoiceDate(generateLocalDate());
-            instance.setPIN(RandomStringUtils.randomNumeric(4));
+
+            if (getRandomNumberInRange(0, 4) != 1) {
+                instance.setPIN(RandomStringUtils.randomNumeric(4));
+            }
 
             invoiceList.add(instance);
         }
@@ -40,10 +44,20 @@ public class DataGenerationServiceImpl implements DataGenerationService {
     }
 
     private LocalDate generateLocalDate() {
-        long minDay = LocalDate.of(2015, 1, 1).toEpochDay();
-        long maxDay = LocalDate.of(2017, 12, 31).toEpochDay();
+        long minDay = LocalDate.of(1980, 1, 1).toEpochDay();
+        long maxDay = LocalDate.of(2099, 1, 1).toEpochDay();
         long randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay);
 
         return LocalDate.ofEpochDay(randomDay);
+    }
+
+    private int getRandomNumberInRange(int min, int max) {
+
+        if (min >= max) {
+            throw new IllegalArgumentException("Max must be greater than min!");
+        }
+
+        Random r = new Random();
+        return r.ints(min, (max + 1)).limit(1).findFirst().getAsInt();
     }
 }

@@ -9,5 +9,6 @@ public class AppBundleModule extends AbstractModule {
         install(new ControllerFactoryModule());
         install(new CSVServiceModule());
         install(new DataGenerationServiceModule());
+        install(new ValidatorServiceModule());
     }
 }
