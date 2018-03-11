@@ -1,5 +1,6 @@
 package com.globalblue.services.impl;
 
+import com.globalblue.commons.Constants;
 import com.globalblue.models.Invoice;
 import com.globalblue.services.DataGenerationService;
 import javafx.collections.FXCollections;
@@ -17,7 +18,7 @@ public class DataGenerationServiceImpl implements DataGenerationService {
     public HashMap<Integer, ObservableList<Invoice>> generateRecords(int shops, int invoicesPerShop) {
         HashMap<Integer, ObservableList<Invoice>> records = new HashMap<>();
 
-        for (int shop = 1; shop < shops; ++shop) {
+        for (int shop = 1; shop <= shops; ++shop) {
             records.put(shop, generateInvoiceList(invoicesPerShop));
         }
 
@@ -44,8 +45,8 @@ public class DataGenerationServiceImpl implements DataGenerationService {
     }
 
     private LocalDate generateLocalDate() {
-        long minDay = LocalDate.of(1980, 1, 1).toEpochDay();
-        long maxDay = LocalDate.of(2099, 1, 1).toEpochDay();
+        long minDay = Constants.MIN_DATE.toEpochDay();
+        long maxDay = Constants.MAX_DATE.toEpochDay();
         long randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay);
 
         return LocalDate.ofEpochDay(randomDay);

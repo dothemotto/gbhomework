@@ -1,21 +1,14 @@
 package com.globalblue.models;
 
+import com.globalblue.commons.Constants;
+import com.globalblue.utils.GBUtils;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
-import java.util.concurrent.TimeUnit;
 
 public class RestrictiveTextField extends TextField {
 
@@ -35,14 +28,14 @@ public class RestrictiveTextField extends TextField {
                 if (maxLength.get() > -1 && s1.length() > maxLength.get()) {
                     ignore = true;
                     setText(s1.substring(0, maxLength.get()));
-                    getErrorDialog().show();
+                    GBUtils.infoDialog(Constants.MAX_LENGTH_REACHED).show();
                     ignore = false;
                 }
 
                 if (restrict.get() != null && !restrict.get().equals("") && !s1.matches(restrict.get() + "*")) {
                     ignore = true;
                     setText(s);
-                    getErrorDialog().show();
+                    GBUtils.errorDialog(Constants.CHARACTER_NOT_ALLOWED).show();
                     ignore = false;
                 }
             }
@@ -105,19 +98,5 @@ public class RestrictiveTextField extends TextField {
      */
     public void setRestrict(String restrict) {
         this.restrict.set(restrict);
-    }
-
-    private Stage getErrorDialog() {
-        final Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        VBox dialogVbox = new VBox(20);
-        Text txt = new Text("This is a Dialog");
-        txt.setTextAlignment(TextAlignment.CENTER);
-        dialogVbox.getChildren().add(txt);
-        Scene dialogScene = new Scene(dialogVbox, 350, 150);
-        dialog.setScene(dialogScene);
-        dialog.initStyle(StageStyle.UTILITY);
-
-        return dialog;
     }
 }

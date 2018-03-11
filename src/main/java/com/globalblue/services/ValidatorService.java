@@ -9,4 +9,6 @@ public interface ValidatorService {
     boolean isValidToDate(LocalDate validFrom, LocalDate validTo);
 
     boolean isDateInRange(LocalDate date);
+
+    boolean isFieldNotEmpty(Object field);
 }

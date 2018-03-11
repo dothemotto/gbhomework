@@ -6,73 +6,97 @@
 
     <groupId>com.globalblue</groupId>
     <artifactId>homework</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
+
+    <developers>
+        <developer>
+            <id>dothemotto</id>
+            <name>Laurentiu Motoonu</name>
+            <email>motto_laur_costi@yahoo.com</email>
+        </developer>
+    </developers>
+
+    <properties>
+        <encoding>UTF-8</encoding>
+        <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
+
+        <java.version>1.8</java.version>
+        <java.version.source>${java.version}</java.version.source>
+        <java.version.target>${java.version}</java.version.target>
+
+        <main_class>com.globalblue.MainApplication</main_class>
+
+        <!--dependencies versions-->
+        <guice-version>4.2.0</guice-version>
+        <javax.inject-version>1</javax.inject-version>
+        <common.lang3-version>3.5</common.lang3-version>
+        <maven.compiler.plugin-version>3.7.0</maven.compiler.plugin-version>
+        <maven.jar.plugin-version>3.0.2</maven.jar.plugin-version>
+        <maven.shade.plugin-version>3.1.0</maven.shade.plugin-version>
+        <exec.maven.plugin-version>1.6.0</exec.maven.plugin-version>
+        <!--dependencies versions-->
+    </properties>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
+                <version>${maven.compiler.plugin-version}</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${java.version.source}</source>
+                    <target>${java.version.target}</target>
                 </configuration>
             </plugin>
-            <!--extra security for .jar-->
+
             <plugin>
-                <groupId>com.github.wvengen</groupId>
-                <artifactId>proguard-maven-plugin</artifactId>
-                <version>2.0.14</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven.jar.plugin-version}</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${exec.maven.plugin-version}</version>
                 <executions>
                     <execution>
-                        <phase>package</phase>
                         <goals>
-                            <goal>proguard</goal>
+                            <goal>java</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
-                    <proguardVersion>5.2</proguardVersion>
-                    <libs>
-                        <lib>${java.home}/lib/rt.jar</lib>
-                        <lib>${java.home}/lib/ext/jfxrt.jar</lib>
-                        <lib>${java.home}/lib/jce.jar</lib>
-                    </libs>
+                    <mainClass>${main_class}</mainClass>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>net.sf.proguard</groupId>
-                        <artifactId>proguard-base</artifactId>
-                        <version>5.2.1</version>
-                        <scope>runtime</scope>
-                    </dependency>
-                </dependencies>
             </plugin>
-            <!--FX Bundle-->
-            <plugin>
-                <groupId>com.zenjava</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>8.8.3</version>
-                <configuration>
-                    <updateExistingJar>true</updateExistingJar>
-                    <mainClass>com.globalblue.Application</mainClass>
-                    <bundler>EXE</bundler>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>create-jfxjar</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>build-jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <!--add information in MANIFEST.MF-->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
+                <version>${maven.shade.plugin-version}</version>
+                <configuration>
+                    <finalName>${project.artifactId}</finalName>
+                    <transformers>
+                        <transformer
+                                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                            <manifestEntries>
+                                <Main-Class>${main_class}</Main-Class>
+                                <X-Compile-Source-JDK>${java.version.source}</X-Compile-Source-JDK>
+                                <X-Compile-Target-JDK>${java.version.target}</X-Compile-Target-JDK>
+                            </manifestEntries>
+                        </transformer>
+                    </transformers>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -81,15 +105,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <finalName>${project.artifactId}</finalName>
-                    <transformers>
-                        <transformer
-                                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                            <mainClass>com.globalblue.Application</mainClass>
-                        </transformer>
-                    </transformers>
-                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -98,17 +113,17 @@
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
-            <version>4.2.0</version>
+            <version>${guice-version}</version>
         </dependency>
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
-            <version>1</version>
+            <version>${javax.inject-version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.5</version>
+            <version>${common.lang3-version}</version>
         </dependency>
     </dependencies>
 </project>

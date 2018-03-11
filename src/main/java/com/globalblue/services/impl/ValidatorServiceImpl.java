@@ -1,13 +1,12 @@
 package com.globalblue.services.impl;
 
+import com.globalblue.commons.Constants;
 import com.globalblue.services.ValidatorService;
+import javafx.scene.control.DatePicker;
 
 import java.time.LocalDate;
 
 public class ValidatorServiceImpl implements ValidatorService {
-
-    final LocalDate min = LocalDate.of(1980, 1, 1);
-    final LocalDate max = LocalDate.of(2099, 1, 1);
 
     @Override
     public boolean isValidFromDate(LocalDate validFrom) {
@@ -32,8 +31,27 @@ public class ValidatorServiceImpl implements ValidatorService {
     @Override
     public boolean isDateInRange(LocalDate date) {
 
-        if (date != null && date.isAfter(min) && date.isBefore(max)) {
+        if (date != null
+                && (date.isAfter(Constants.MIN_DATE) || date.isEqual(Constants.MIN_DATE))
+                && (date.isBefore(Constants.MAX_DATE) || date.isEqual(Constants.MAX_DATE))) {
             return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean isFieldNotEmpty(Object field) {
+        if (field instanceof javafx.scene.control.TextField) {
+            javafx.scene.control.TextField _field = (javafx.scene.control.TextField) field;
+            if (!_field.getText().isEmpty()) {
+                return true;
+            }
+        } else if (field instanceof DatePicker) {
+            LocalDate _field = ((DatePicker) field).getValue();
+            if (_field != null && !_field.toString().isEmpty()) {
+                return true;
+            }
         }
 
         return false;
