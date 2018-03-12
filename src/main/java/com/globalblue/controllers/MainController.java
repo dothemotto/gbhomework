@@ -45,7 +45,7 @@ public class MainController extends AbstractController implements Initializable 
         this.dataGenerationService = Objects.requireNonNull(dataGenerationService, "Data generation service has not been instantiated! Please check that!");
         this.validatorService = Objects.requireNonNull(validatorService, "Validator service has not been instantiated! Please check that!");
 
-        this.data = dataGenerationService.generateRecords(5, 400000);
+        this.data = dataGenerationService.generateRecords(5, 100000);
     }
 
     @Override
